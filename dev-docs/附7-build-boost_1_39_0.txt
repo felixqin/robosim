@@ -1,0 +1,24 @@
+build boost 1.39.0 binary
+
+  (1) build bjam
+  
+    > cd <boost-root>\tools\jam\src
+    > build mingw --release
+  
+  (2) build special library of boost
+  
+    example for boost::thread
+  
+    > cd <boost-root>
+    > tools\jam\src\bin.ntx86\bjam.exe --help
+    > tools\jam\src\bin.ntx86\bjam.exe --with-thread toolset=gcc variant=release link=shared threading=multi stage
+    
+    we must build boost::thread, boost::system and boost::program_options for robosim.
+    
+    to build boost::system and boost::program_options :
+    
+    > tools\jam\src\bin.ntx86\bjam.exe --with-system toolset=gcc variant=release link=shared threading=multi stage
+    > tools\jam\src\bin.ntx86\bjam.exe --with-program_options toolset=gcc variant=release link=shared threading=multi stage
+
+
+

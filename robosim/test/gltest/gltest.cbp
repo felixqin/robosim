@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="gltest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\gltest" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="D:\lib\glfw.bin.WIN32\bin" />
+				<Option object_output="obj\Debug\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\gltest" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="D:\lib\glfw.bin.WIN32\bin" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="..\..\sdk\include" />
+			<Add directory="..\..\robosim\include" />
+		</Compiler>
+		<Linker>
+			<Add library="glfw" />
+			<Add library="opengl32" />
+			<Add library="glu32" />
+			<Add library="gdi32" />
+		</Linker>
+		<Unit filename="..\..\robosim\include\glfw\drawutil.h" />
+		<Unit filename="..\..\robosim\include\glfw\texture.h" />
+		<Unit filename="..\..\robosim\src\glfw\drawutil.cpp" />
+		<Unit filename="..\..\robosim\src\glfw\texture.cpp" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

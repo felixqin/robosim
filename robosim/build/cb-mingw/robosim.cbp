@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="robosim" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="sdk">
+				<Option output="..\..\devel\mingw\robosim" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\devel\mingw" />
+				<Option object_output="..\..\tmp\objs\mingw\sdk\" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-Os" />
+					<Add option="-O3" />
+					<Add option="-O2" />
+					<Add option="-O1" />
+					<Add option="-O" />
+					<Add option="-DSDK_EXPORTS" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="ode_single" />
+				</Linker>
+			</Target>
+			<Target title="main">
+				<Option output="..\..\devel\mingw\robosim" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\devel\mingw\" />
+				<Option object_output="..\..\tmp\objs\mingw\main\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-O2" />
+					<Add option="-O1" />
+					<Add option="-O" />
+					<Add directory="..\..\robosim\include" />
+				</Compiler>
+				<Linker>
+					<Add library="glfw" />
+					<Add library="opengl32" />
+					<Add library="glu32" />
+					<Add library="ode_single" />
+					<Add library="robosim" />
+					<Add library="boost_thread-mgw44-mt" />
+					<Add library="boost_program_options-mgw44-mt" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-g" />
+			<Add option="-DDEBUG" />
+			<Add directory="..\..\sdk\include" />
+		</Compiler>
+		<Linker>
+			<Add directory="$(#glfw)\lib-mingw" />
+			<Add directory="..\..\devel\mingw" />
+		</Linker>
+		<Unit filename="..\..\robosim\include\app\app.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\app\configure.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\app\dllplugin.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\app\isimui.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\app\pluginmgr.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\app\resmgr.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\callback.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\drawing.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\drawutil.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\gl.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\texture.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\timer.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\glfw\window.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\platform\platform.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\platform\win32\api.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\platform\win32\dll.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\sim\communicator.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\sim\simulator.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\sim\status.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\sim\world.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\include\util\camera.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\app\app.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\app\configure.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\app\dllplugin.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\app\pluginmgr.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\app\resmgr.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\glfw\callback.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\glfw\drawing.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\glfw\drawutil.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\glfw\texture.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\glfw\window.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\main.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\platform\win32\api.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\sim\communicator.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\sim\simulator.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\sim\status.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\sim\world.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\robosim\src\util\camera.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\iapp.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\icomm.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\idrawing.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\ientity.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\imsghandler.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\ipart.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\iplugin.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\iresmgr.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\isim.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\istatus.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\itimer.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\iworld.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\message.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\param.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\base\plugindll.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\constant.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\ext.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\ext\messages.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\ext\parts.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\precomp.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\robosim.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\types.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util\debug.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util\ini.hpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util\log.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util\odeext.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\include\robosim\util\platform.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\impl\gpartimpl.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\impl\gpartimpl.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\impl\tmpartimpl.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\impl\tmpartimpl.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\msgs.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\ext\parts.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\platform\win32\api.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\util\debug.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\util\impl\cfgsect.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\util\impl\config_impl.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="..\..\sdk\src\util\odeext.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

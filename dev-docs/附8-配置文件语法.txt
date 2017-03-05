@@ -1,0 +1,22 @@
+ from boost 1.39.0 source code (boost\program_options\detail\config_file.hpp)
+ ==================================================================================
+ 
+        Syntax conventions:
+
+        - config file can not contain positional options
+        - '#' is comment character: it is ignored together with
+          the rest of the line.
+        - variable assignments are in the form
+          name '=' value.
+          spaces around '=' are trimmed.
+        - Section names are given in brackets. 
+
+         The actual option name is constructed by combining current section
+         name and specified option name, with dot between. If section_name 
+         already contains dot at the end, new dot is not inserted. For example:
+         @verbatim
+         [gui.accessibility]
+         visual_bell=yes
+         @endverbatim
+         will result in option "gui.accessibility.visual_bell" with value
+         "yes" been returned.

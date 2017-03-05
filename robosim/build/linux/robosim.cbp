@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="robosim" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="sdk">
+				<Option output="../../devel/linux/librobosim" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../devel/linux" />
+				<Option object_output="../../tmp/objs/linux/sdk/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-fPIC" />
+					<Add option="`ode-config --cflags`" />
+					<Add option="-DSDK_EXPORTS" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="`ode-config --libs`" />
+				</Linker>
+			</Target>
+			<Target title="main">
+				<Option output="../../devel/linux/robosim" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../devel/linux/" />
+				<Option object_output="../../tmp/objs/linux/main/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../../robosim/include" />
+				</Compiler>
+				<Linker>
+					<Add library="glfw" />
+					<Add library="GL" />
+					<Add library="GLU" />
+					<Add library="Xrandr" />
+					<Add library="Xxf86vm" />
+					<Add library="robosim" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-g" />
+			<Add option="`ode-config --cflags`" />
+			<Add directory="../../sdk/include" />
+		</Compiler>
+		<Linker>
+			<Add option="`ode-config --libs`" />
+			<Add directory="$(#glfw)/lib-mingw" />
+			<Add directory="../../devel/linux" />
+		</Linker>
+		<Unit filename="../../robosim/include/app/app.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/configure.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/dllplugin.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/isimui.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/itimer.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/pluginmgr.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/app/resmgr.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/callback.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/drawing.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/drawutil.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/gl.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/texture.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/timer.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/glfw/window.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/platform/linux/api.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/platform/linux/dll.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/platform/platform.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/platform/win32/api.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/platform/win32/dll.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/sim/communicator.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/sim/simulator.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/sim/world.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/util/camera.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/include/util/log.h">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/app/app.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/app/configure.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/app/dllplugin.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/app/pluginmgr.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/app/resmgr.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/glfw/callback.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/glfw/drawing.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/glfw/drawutil.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/glfw/texture.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/glfw/window.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/main.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/platform/linux/api.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/sim/communicator.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/sim/simulator.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/sim/world.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/util/camera.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../robosim/src/util/log.cpp">
+			<Option target="main" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/icomm.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/idrawing.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/ientity.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/imsg.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/ipart.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/iplugin.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/isim.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/itimer.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/iworld.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/param.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/base/plugindll.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/constant.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/ext/gpart.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/ext/msgs.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/ext/odeext.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/precomp.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/sdk_base.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/include/util/config.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/gpart.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/impl/gpartimpl.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/impl/gpartimpl.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/impl/msgfactory.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/impl/msgfactory.h">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/msgs.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/ext/odeext.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/util/config.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/util/impl/config_impl.cpp">
+			<Option target="sdk" />
+		</Unit>
+		<Unit filename="../../sdk/src/util/impl/config_impl.h">
+			<Option target="sdk" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

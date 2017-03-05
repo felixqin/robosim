@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="plugins" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="field">
+				<Option output="..\..\devel\linux\plugins\field" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\devel\linux" />
+				<Option object_output="..\..\tmp\objs\linux\plugins" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+			</Target>
+			<Target title="team">
+				<Option output="..\..\devel\linux\plugins\team" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\devel\linux" />
+				<Option object_output="..\..\tmp\objs\linux\plugins" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-g" />
+			<Add option="-DPLUGIN_EXPORTS" />
+			<Add option="-fPIC" />
+			<Add option="`ode-config --cflags`" />
+			<Add directory="..\..\sdk\include" />
+		</Compiler>
+		<Linker>
+			<Add option="`ode-config --libs`" />
+			<Add library="robosim" />
+			<Add directory="..\..\devel\linux" />
+		</Linker>
+		<Unit filename="..\..\plugins\field\ball.cpp">
+			<Option target="field" />
+		</Unit>
+		<Unit filename="..\..\plugins\field\ball.h">
+			<Option target="field" />
+		</Unit>
+		<Unit filename="..\..\plugins\field\field.cpp">
+			<Option target="field" />
+		</Unit>
+		<Unit filename="..\..\plugins\field\plane.cpp">
+			<Option target="field" />
+		</Unit>
+		<Unit filename="..\..\plugins\field\plane.h">
+			<Option target="field" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\omniwheel.cpp">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\omniwheel.h">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\plugin.cpp">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\robot.cpp">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\robot.h">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\robotai.cpp">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\robotai.h">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\robotparam.h">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\team.cpp">
+			<Option target="team" />
+		</Unit>
+		<Unit filename="..\..\plugins\team\team.h">
+			<Option target="team" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,456 @@
+﻿开发日志
+qfl
+
+(符号意义: '-'表示未实现的功能或未修正的错误,'+'表示已实现)
+
+2009-6-2
+ * 取消日志记录函数LogData,改用DebugPrint. windows平台下调用OutputDebugString, 其它平
+   台使用标准错误输出流std::cerr.
+
+
+2009-6-1
+ * 计划采用boost.filesystem进行文件管理,替换原先相关代码.boost.filesystem 已被包含到
+   c++0x 标准的TR2中.
+
+
+2009-5-31
+ * 改进team插件,实现读取ini格式的机器人配置信息.
+
+
+2009-5-30
+ * 使用QFL(Quick Free Library)类库读写ini文件. 机器人配置信息全部用ini文件格式存储. 
+
+
+2009-3-16
+ * 编写了一个小工具,用于生成机器人外壳的三角网格数据.
+
+
+2009-3-15
+ * 怎样取得机器人配置信息? 一种方法是使用XML,用tinyXML来解析. 一种是使用ROBOSIM SDK 的
+   ini文件读取类. 考虑到配置信息都比较简单,为降低软件复杂度,使用ini文件读取类.
+
+
+2009-3-14
+ * 改造Communicator类,使之成为线程安全类.
+ * 添加ISimulatorStatus接口,也要求线程安全,取代原ServiceAdapter.
+ * rgcp服务器与上述两个类取得仿真器状态及控制物体.视觉信号生成插件也使用ISimulatorStatus类.
+
+
+2009-3-13
+ * 一天多时间解决网格几何体问题!走了大弯路! dGeomTriMeshDataBuildSimple()函数和
+   dGeomTriMeshDataBuildSingle()函数有很大区别,一定要慎用前者. 前者默认VertexStride
+   为4个dReal大小.
+   还是vs2008调试能力强于gdb.
+ * 将TrimeshPart移入SDK,并增加C函数接口
+
+
+2009-3-11
+ * 理顺了主线程和网络服务线程之间的同步问题,详见UML中的顺序图.
+ * 可以控制仿真服务器的物体运动了.
+
+
+2009-3-10
+ * 重构RGCP服务解析类.用不同的类解析不同的命令,详请见UML类图.
+
+
+2009-3-9
+ * 重新组织了源码目录结构
+
+
+2009-3-7
+ * 实现了昨天所提的第3,4个问题
+
+
+2009-3-6
++* glfw::DrawUtility::drawShpere()函数存在BUG, 后两个参数应是整型.
++* 用组别(tag)和组内编号(number)作为IEntity的ID.
++* 为Config类提供C函数接口.
++* 将日志类移入SDK中,并提供C函数接口.
+
+
+2009-3-4
+ * 将Robocup小型组仿真服务器通用通信协议命名为RGCP.
+ * 为IWorld增加接口ergodEntities(),遍历所有仿真物体,以便为RGCP提供服务器数据.
+ * 编写了RGCP插件的原型.
+
+
+2009-3-3
+ * 设计仿真服务器通信协议. 见"附6-Robocup小型组仿真服务器通用通信协议.doc".
+
+
+2009-3-2
+ * 学习 asio. asio不仅实现了网络socket操作,还实现了串口操作.
+
+
+2009-3-1
+ * 用C接口替代GenericPart类接口,有利于加强SDK库的通用性.
+ * 总算在linux下编译成功,程序运行速度明显优于windows环境.
+
+
+2009-2-28
+ * 要实现纹理的按需载入. RM登记纹理,Drawing在使用纹理时,真正载入纹理.
+ * 终于可以正确显示纹理了. 一定要设置地面的颜色为白色.
+
+
+2009-2-25
+ * 完善异常处理. 优先使用标准类库定义的异常.
+ * 消除了IPlugin与ISimulator的聚集, IPlugin由PluginManager统一管理(install,uninstall,
+   timeslice).
+
+
+2009-2-23
+ * 怎样解决消息对象在各模块间传递,并正确释放内存?
+ * 用创建型模式解决.消息对象的创建与销毁由工厂类负责,工厂类由SDK提供.
+   所有的Message只能由消息工厂创建,不能使用自己创建的消息.
+ * class MessageFactory 的实现用容器索引号作Message的ID, 会引起错误: 当容器内容改变
+   时,索引号就不能正确指出对就的 Message.
+ * 直接用Message对象的指针作为MessageID.
+ * Timer接口新增pause()和start()方法,以便控制仿真器时序.
+ * 分离了系统时钟和仿真器时钟.
+
+
+2009-2-22
+ * 昨天所提出的实现IEntity::setLocation()的两种方法有一缺点, 就是在Part与Entity之间
+   的相对位置发生变化时(例如机器人的手臂姿态改变), 如果仅用初始化时存储的方位进行设
+   定,显然不能满足要求.
+   为此,提出另一种实现方法.在要setLocation()时,动态计算出Part的方位.算法的数学计算
+   见附件5.
+ * 把IEntity::setLocation拆分成setPosition和setQuaternion,因为其中的setPosition较易
+   实现.
+
+
+2009-2-21
+ * 学习了四元数(Quaternion)及其在三维旋转中的应用
+ * 拟实现 IEntity::setLocation(float x, float y, float theta) 接口, 仿真中物体的位置
+   可用(x,y,theta)表示.
+ * 实现方法: IEntity存储其所有部件的初始位置(向量)和方向(四元数),setLocation()计算出
+   各部件将要放置到的位置和方向.
+ * 另一种实现方法: 每个Part构造时记住自己在Entity坐标系中的位置与方向,
+ * 程序中改用弧度计量角的大小.
+
+
+2009-2-20
+ * 完善了premake4 脚本.
+-* BUG: 当主程序目录下无config.ini文件时,程序界面不出来,并占用50%的CPU资源.
+ * 很奇怪的一个问题: 当项目的cbp配置文件中没有加入$(#glfw)/lib-mingw时, 编译出的程序
+   不能正确运行, 总是报ode错.
+
+
+2009-2-19
+ * 机器人车轮位置参数及在ODE中构建车轮.(详细说明见"在ODE中构建车轮.doc")
+
+2009-2-18
+ * 修改了World::onCollide()函数内的一个BUG.(关于变量作用域的一个错误)
+ * 设置GenericPart的SurfaceParameter初始值为SP_NULL.
+ 
+
+2009-2-14
+ * 对下列算法给出了更简洁的理论证明.
+	/**
+	* v 沿 v和v_end构成的平面, 向v_end旋转angle角度
+	* v 正交于 v_end, v v_end 是单位向量
+	*/
+	void Camera::rotate(float v[], const float v_end[], const float angle)
+	{
+		static const float pi=3.1415926535897932384626f;
+
+	    float cosa = std::cos(angle/180*pi);
+	    float sina = std::sin(angle/180*pi);
+	    v[0] = v[0]*cosa + v_end[0]*sina;
+	    v[1] = v[1]*cosa + v_end[1]*sina;
+	    v[2] = v[2]*cosa + v_end[2]*sina;
+	}
+
+
+2009-2-13
+ * 关于视角问题的一些思考.
+   设OpenGL中Camera在全局坐标系中所处方位,用位移向量p和旋转矩阵R表示.初始情况
+   下
+   p = (0,0,0)
+       | 1 0 0 |
+   R = | 0 1 0 |
+       | 0 0 1 |
+   此时,Camera处在(0,0,0)处,Camera的镜头指向(0,0,-1),向上向量为(0,1,0).
+   设Camera的右方单位向量为r,上方单位向量为u,镜头后方单位向量为b,则:
+   R = (r,u,b).
+ * 实现了视角水平化.
+    inline
+    void Camera::horizontalize()
+    {
+        static const float ez[] = { 0, 0, 1 };
+        schmidt2(f_,ez,u_);
+        normalize(u_);
+        cross(f_,u_,r_);
+    }
+
+
+2009-1-18
+ * 基本完成Config文件读写类,可以修改var的值,但未实现在文件中新建一个Section或
+   Var.
+
+
+2009-1-17
+ * 发现一个很奇怪的问题: 用ifstream的文本模式打开一个文件,tellg()得到的值总是
+   比实际大2.用binary模式打开,没有此问题.(编译器是gcc3.4.5)
+ * 在用seekg()恢复位置时应先clear()状态位.
+
+
+2009-1-14
+ * Plugin接口更改,ininitialize(),uninitialize()改为install(),uninstall(),这样
+   与installPlugin(),uninstall()意义更一致.
+ * 缺乏资料,暂不实现配置的读写,回学校后解决.
+
+
+2009-1-13
+ * 配置文件读写
+ * 两类参数: SystemParameters, SimulatorParameters.
+ * Configure类应该设计成单件模式
+
+
+2009-1-12
+ * 插件可正确运行
+
+
+2009-1-11
+ * 建立了部分平台抽象层接口
+ * 实现了动态加载插件
+
+
+2009-1-10
+ * 改变原有的软件结构,重新划分三大模块:主模块,SDK模块,插件模块.
+   SDK模块只定义接口,主模块实现这些接口.
+ * vc6不能编译通过,出现下列错误:
+   error C2485: 'deprecated' : unrecognized extended attribute
+   ODE 文档中明确提到不支持VC6.
+ * 用vs.net2003编译!
+
+
+2009-1-8
+ * 今天开始,在家里开发.电脑配置比较低
+ * 拟用vc6编译
+
+
+2009-1-6
+ * 将Camera类从Drawing类中移出
+ * 用vs2008编译
+
+
+2009-1-5
+ * 尚需解决的重要问题:
+-  (1) 配置文件的读取,将平台的性能参数储于配置文件.
+-  (2) 自定义消息.
+-  (3) 
+ * 发现一个问题:
+     我的插件的编写考虑采用动态链接库来写,插件使用主仿真平台的的接口,这样就存在一个问题,例
+   如 sim->getModel() 将返回一个模型指针,但在链接这个插件DLL时, getModel()的实现在哪里?
+     看来,我得先解决这个问题: 动态库怎样调用主程序的函数? 或者使用其它方法避免这个问题,如:
+   用传递数据代替函数调用.
+     先研究一下CodeBlocks的插件体系结构.
+ * 修改程序结构,参照CodeBlocks源码结构,独立出sdk库,解决上述问题.插件程序不再调用主程序的函
+   数,而是与主程序共用一个sdk库.程序分为三个部分:主程序,sdk,plugins.
+
+
+
+2009-1-4
+ * 修改Part的Surface实现,将原Surface分为Surface和mu2 dir.
+ * 不再拆分Surface,Surface中存储mu2 dir.
+ * 最终实现的correctContact(),和昨天所述有所不同:
+    void World::correctContact(Part* p1, Part* p2, dContact contact[], int numc)
+    {
+        dSurfaceParameters surface;
+        surface.mode = dContactBounce | dContactSoftCFM;
+        surface.mu = 0;
+        surface.mu2 = 0;
+        surface.bounce = DEFAULT_BOUNCE;
+        surface.bounce_vel = DEFALUT_BOUNCE_VEL;
+        surface.soft_cfm = GLOBAL_CFM;
+
+        const Surface *s1=0, *s2=0;
+        if (p1) s1 = & p1->getSurface();
+        if (p2) s2 = & p2->getSurface();
+
+        if (s1&&s2)
+        {
+            Surface s( *s1 + *s2 );
+            surface = s.getSurfaceParameters();
+        }
+        else if (s1)
+        {
+            surface = s1->getSurfaceParameters();
+        }
+        else if (s2)
+        {
+            surface = s2->getSurfaceParameters();
+        }
+
+        if ( surface.mode & dContactMu2 & dContactFDir1 )
+        {
+            for ( int i=0; i<numc; i++ )
+            {
+                contact[i].surface = surface;
+                if (s1)
+                {
+                    const dReal* R = dBodyGetRotation(p1->getBody());
+                    bool ret = s1->getFDir1(contact[i].fdir1,contact[i].geom.normal,R);
+                    if (ret) break;
+                }
+                if (s2)
+                {
+                    const dReal* R = dBodyGetRotation(p2->getBody());
+                    s2->getFDir1(contact[i].fdir1,contact[i].geom.normal,R);
+                }
+            }
+        }
+        else
+        {
+            for ( int i=0; i<numc; i++ )
+            {
+                contact[i].surface = surface;
+            }
+        }
+    }
+ * 解决了fdir1的问题!!!!!
+    /**
+     * @param dVector3 fdir:    friction force directory
+     * @param dVector3 normal:  contact normal
+     * @param dMatrix3 R:       geom's rotation matrix
+     * @return true: dContactMu2 and dContactFDir1 is set.
+     */
+    bool Surface::getFDir1( dVector3 fdir1, const dVector3 normal, const dMatrix3 R ) const
+    {
+        if ( sp_.mode & ( dContactMu2 | dContactFDir1 ) )
+        {
+            dVector3 dir2;
+            dMULTIPLY0_331(dir2,R,mu2dir_);
+            dCROSS(fdir1,=,dir2,normal);
+            return true;
+        }
+        return false;
+    }
+
+
+
+2009-1-3
+ * 可能的BUG
+   1. dReal 与 float,double之间的类型转换,特别是dReal[]与float[],double[]间的转换.
+   
+ * 修改Drawing类的接口,避免BUG1。加入了下列两个接口函数:
+    virtual void transform(const float pos[], const float R[]) = 0;
+    virtual void transform(const double pos[], const double R[]) = 0;
+    
+ * 留于之后要实现的功能:
+-   1. 实现Entity的enable功能
+-   2. 实现Part的enable功能
++   3. 仿真器初始建立后,各物体的初始位置设定
++   4. 各文件的路径;类System要实现getAppPath()功能
+
+ * 今日重点放在Surface与碰撞处理上
+   碰撞处理初步设想:
+   (1) dCollide()函数求得碰撞点后,对相互碰撞的两个Part调用Part::correctContact()处理碰撞.
+   (2) correctContact()修正每个碰撞点的contact参数,包括fdir1等.
+   (3) 对两次correctContact()调用得到的contact参数,选择一个算法处理,得到最终的contact参数.
+   (4) 根据contact参数建立ContactJoint.
+
+
+2009-1-2
+ * 更改Part接口
+   原接口
+    class Part
+    {
+        Part(const Part&);
+        Part& operator=(const Part&);
+    public:
+        Part() {}
+        virtual ~Part() {}
+
+        virtual dBody* getBody() = 0;
+        virtual dGeom* getGeom() = 0;
+        virtual void  setColor(const Color& color) = 0;
+        virtual void  render(Drawing *draw) const = 0;
+    };
+ * 实践证明,使用ODE的C函数接口更易于程序的内存管理
+
+
+2009-1-1
+
+ * Simulator的两个时间,
+    getRealTime()现实时间: 从Simulator类构造起计时;
+    getModelTime()仿真模型时间: 仿真模型当前演化到的时间.
+   
+    void Simulator::timeslice()
+    {
+      std::vector<Plugin*>::const_iterator it = plugins_.begin();
+
+      for ( ; it != plugins_.end(); it++ )
+      {
+          (*it)->timeslice();
+      }
+
+      communicator_->dispatch();
+
+      double delta = getRealTime()-getModelTime();
+      if (delta>0)
+      {
+          static const double MAX_STEP_TIME = 0.1;
+
+          if (delta>MAX_STEP_TIME) delta = MAX_STEP_TIME;
+
+          model_->step(delta);
+      }
+    }
+
+2008-12-31
+
+ * 定义了System类,封装系统相关函数
+
+
+2008-12-30
+
+ * 成功驱动电机;驱动电机要设置两个参数:最大力和预期速度
+ * 精确分配时间片
+    void run()
+    {
+        if (!system.openWindow())
+        {
+            return;
+        }
+
+        static float sim_time = 0.01;
+        static float frame_time = 0.05;
+
+        double t1,t2,tf=-frame_time;
+
+        for(;;)
+        {
+            t1 = simulator.getTime();
+            simulator.timeslice();
+
+            if ( t1-tf >= frame_time )
+            {
+                tf = t1;
+                if (system.closed()) break;
+                system.draw(simulator.getModel());
+            }
+            t2 = simulator.getTime();
+            float dt = sim_time - ( t2 - t1 );
+            if (dt>0) system.sleep(dt);
+        }
+    }
+
+
+2008-12-29
+
+ * 添加了日志记录类
+
+2008-12-28
+
+ * 确定了时序,见"两个时序.txt"文件
+ * 完成了通讯类 Communicator, 使用 shared_ptr 共享消息对象 Message
+
+
+2008-12-27
+
+ * 去掉一些类的init()函数。
+ * 增加timeslice()
+ * 添加无线收发器插件
+
